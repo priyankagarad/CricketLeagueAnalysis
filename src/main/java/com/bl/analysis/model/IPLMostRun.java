@@ -42,7 +42,6 @@ public class IPLMostRun {
 
         @CsvBindByName(column = "6s")
         private String sixs;
-
         public String getPOS () {
         return POS;
     }

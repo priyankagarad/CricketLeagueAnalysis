@@ -58,4 +58,14 @@ public class CricketLeagueAnalysisTest {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
         }
     }
+    /* T.C 1.5 :Given IPL Csv file Header is Incorrect return Custom Exception */
+    @Test
+    public void givenIPLDataFile_WhenHeaderIsWrong_ThenShouldThrowException()
+    {
+        try {
+            cricketLeagueAnalysis.loadIPLData(WRONG_DELIMITER_FILE); }
+        catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
+        }
+    }
 }
