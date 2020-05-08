@@ -3,8 +3,7 @@ import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CricketLeagueAnalysis;
 import org.junit.Assert;
 import org.junit.Test;
-import static com.bl.analysis.model.FileUtility.IPL_RUN_SHEET;
-import static com.bl.analysis.model.FileUtility.WRONG_CSV_FILE_PATH;
+import static com.bl.analysis.model.FileUtility.*;
 
 public class CricketLeagueAnalysisTest {
     CricketLeagueAnalysis cricketLeagueAnalysis;
@@ -27,9 +26,19 @@ public class CricketLeagueAnalysisTest {
     public void givenStateCensusData_WhenWithWrongFile_ThenShouldThrowException()
     {
         try {
-            cricketLeagueAnalysis.LoadIPLData(WRONG_CSV_FILE_PATH);
+            cricketLeagueAnalysis.LoadIPLData(WRONG_CSV_FILE_Name);
         } catch ( CricketLeagueAnalysisException e) {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND,e.exceptionTypeObject);
         }
+    }
+
+    /* T.C 1.3 :Given IPL Csv Type Is Incorrect Then Returns Custom Exception */
+    @Test
+    public void givenFileName_whenImproper_shouldThrowException()
+    {
+        try {
+            cricketLeagueAnalysis.LoadIPLData(WRONG_CSV_FILE_TYPE); }
+        catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND,e.exceptionTypeObject); }
     }
 }
