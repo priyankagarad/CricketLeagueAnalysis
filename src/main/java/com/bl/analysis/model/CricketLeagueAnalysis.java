@@ -17,9 +17,9 @@ public class CricketLeagueAnalysis {
                     .withType(IPLMostRun.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            Iterator<IPLMostRun> stateCensesAnalyzerClassIterator = csvToBean.iterator();
-            while (stateCensesAnalyzerClassIterator.hasNext()) {
-                IPLMostRun iplMostRuns = stateCensesAnalyzerClassIterator.next();
+            Iterator<IPLMostRun> analyser = csvToBean.iterator();
+            while (analyser.hasNext()) {
+                IPLMostRun iplMostRuns = analyser.next();
                 count++;
             }
         } catch (IOException e) {
