@@ -154,5 +154,14 @@ public class CricketLeagueAnalysisTest
         String playerName1 = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("MS Dhoni", playerName1);
     }
+    
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestWktsAndRunner() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestWickets();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Deepak Chahar",playerName);
+    }
 }
 
