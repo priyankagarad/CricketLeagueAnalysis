@@ -39,7 +39,7 @@ public class CricketLeagueAnalysis {
         if (csvFileList.size() == 0 || csvFileList == null)
             throw new CricketLeagueAnalysisException("No Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> census.getAvg());
-        this.sort(runsComparator);
+        this.sortedDataOfRuns(runsComparator);
         String sortedCensusJson = new Gson().toJson(csvFileList);
         return sortedCensusJson;
     }
@@ -48,7 +48,7 @@ public class CricketLeagueAnalysis {
        if(csvFileList.size()==0 || csvFileList==null)
            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
            Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
-           this.sort(runnerComparator);
+           this.sortedDataOfRuns(runnerComparator);
            String sortedDataJson=new Gson().toJson(csvFileList);
            return sortedDataJson;
    }
@@ -57,7 +57,7 @@ public class CricketLeagueAnalysis {
         if(csvFileList.size()==0 || csvFileList==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSixs());
-        this.sort(runnerComparator);
+        this.sortedDataOfRuns(runnerComparator);
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
@@ -66,7 +66,7 @@ public class CricketLeagueAnalysis {
         if(csvFileList.size()==0 || csvFileList==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getFours());
-        this.sort(runnerComparator);
+        this.sortedDataOfRuns(runnerComparator);
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
@@ -75,7 +75,7 @@ public class CricketLeagueAnalysis {
         if(csvFileList.size()==0 || csvFileList==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
-        this.sort(runnerComparator);
+        this.sortedDataOfRuns(runnerComparator);
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
@@ -83,12 +83,24 @@ public class CricketLeagueAnalysis {
         if(csvFileList.size()==0 || csvFileList==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getRuns());
-        this.sort(runnerComparator);
+        this.sortedDataOfRuns(runnerComparator);
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
-    
-    private void sort(Comparator<CSVRunner> iplComparator) {
+    private void sortedDataOfRuns(Comparator<CSVRunner> iplComparator) {
+        for (int i = 0; i < csvFileList.size() - 1; i++) {
+            for (int j = 0; j < csvFileList.size() - i - 1; j++) {
+                CSVRunner census1 = csvFileList.get(j);
+                CSVRunner census2 =csvFileList.get(j + 1);
+                if (iplComparator.compare(census1, census2) < 0) {
+                    csvFileList.set(j, census2);
+                    csvFileList.set(j + 1, census1);
+                }
+            }
+        }
+    }
+
+    private void sortedDataOdWkts(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
                 CSVRunner census1 = csvFileList.get(j);

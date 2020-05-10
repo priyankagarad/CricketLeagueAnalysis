@@ -121,4 +121,13 @@ public class CricketLeagueAnalysisTest
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Yuvraj Singh", playerName);
     }
+
+    @Test
+    public void givenCricketLeagueData_whenNumberOfRecordMatches_shouldReturnTrue() {
+        try {
+            int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfRuns(WICKETS_CSV_FILE_PATH);
+            Assert.assertEquals(100, numberOfRecords);
+        } catch (CricketLeagueAnalysisException e) {
+        }
+    }
 }
