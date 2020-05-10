@@ -29,7 +29,7 @@ public class CSVRunner {
         private String BF;
 
         @CsvBindByName(column = "SR")
-        private String SR;
+        private double SR;
 
         @CsvBindByName(column = "100")
         private String hundred;
@@ -116,11 +116,11 @@ public class CSVRunner {
         this.BF = BF;
     }
 
-        public String getSR () {
+        public double getSR () {
         return SR;
     }
 
-        public void setSR (String SR){
+        public void setSR (double SR){
         this.SR = SR;
     }
 
