@@ -41,6 +41,25 @@ public class CricketLeagueAnalysis {
            return sortedDataJson;
    }
 
+    public String getMaximumSixesInMatch(){
+        if(csvFileList.size()==0 || csvFileList==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSixs());
+        this.sort(runnerComparator);
+        String sortedDataJson=new Gson().toJson(csvFileList);
+        return sortedDataJson;
+    }
+
+    public String getMaximumFoursInMatch(){
+        if(csvFileList.size()==0 || csvFileList==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getFours());
+        this.sort(runnerComparator);
+        String sortedDataJson=new Gson().toJson(csvFileList);
+        return sortedDataJson;
+    }
+
+
     private void sort(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
