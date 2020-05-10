@@ -140,6 +140,4 @@ public class CricketLeagueAnalysisTest
         double runs=csvWkts[0].getAvg();
         Assert.assertEquals("Krishnappa Gowtham",playerName);
     }
-
-
 }

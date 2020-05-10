@@ -98,6 +98,15 @@ public class CricketLeagueAnalysis {
         return sortedDataOfWkts;
     }
 
+    public String getSortedWiseWicketsWithBestStrikingRate() {
+        if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getSR());
+        this.sortedDataOfWkts(iplComparator);
+        String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
+        return sortedDataOfWkts;
+    }
+
     private void sortedDataOfRuns(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
