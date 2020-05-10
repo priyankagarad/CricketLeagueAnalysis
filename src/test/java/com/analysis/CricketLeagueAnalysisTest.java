@@ -71,10 +71,10 @@ public class CricketLeagueAnalysisTest
     @Test
     public void whenGivenBatsmanStats_ShouldReturnPlayerWithBestBattingAverage() {
         cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
-        String sortedStats = cricketLeagueAnalysis.bestBattingaverage();
+        String sortedStats = cricketLeagueAnalysis.getTopBattingaverage();
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sortedStats, CSVRunner[].class);
         String playerName=batsmanCSVS[0].getPLAYER();
         double runs=batsmanCSVS[0].getAvg();
-        Assert.assertEquals("MS Dhoni",batsmanCSVS[0].getPLAYER());
+        Assert.assertEquals("MS Dhoni",playerName);
     }
 }

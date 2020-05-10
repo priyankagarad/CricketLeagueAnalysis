@@ -23,7 +23,7 @@ public class CricketLeagueAnalysis {
         }
     }
 
-    public String bestBattingaverage() {
+    public String getTopBattingaverage() {
         if (csvFileList.size() == 0 || csvFileList == null)
             throw new CricketLeagueAnalysisException("No Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> census.getAvg());
@@ -31,6 +31,15 @@ public class CricketLeagueAnalysis {
         String sortedCensusJson = new Gson().toJson(csvFileList);
         return sortedCensusJson;
     }
+
+   public String getTopStrickeRate(){
+       if(csvFileList.size()==0 || csvFileList==null)
+           throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+           Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
+           this.sort(runnerComparator);
+           String sortedDataJson=new Gson().toJson(csvFileList);
+           return sortedDataJson;
+   }
 
     private void sort(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
