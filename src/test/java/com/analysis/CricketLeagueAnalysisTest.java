@@ -1,4 +1,5 @@
 package com.analysis;
+import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CSVRunner;
 import com.bl.analysis.model.CSVWkts;
 import com.bl.analysis.model.CricketLeagueAnalysis;
@@ -72,10 +73,12 @@ public class CricketLeagueAnalysisTest
 
     @Test
     public void givenCricketLeagueData_whenNumberOfRecordMatches_shouldReturnTrue() {
+        try {
             int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
             Assert.assertEquals(99, numberOfRecords);
+        } catch (CricketLeagueAnalysisException e) {
+        }
     }
-
     @Test
     public void givenCricketLeagueData_whenSorted_ShouldReturnWktsAverage() {
         cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
@@ -153,7 +156,7 @@ public class CricketLeagueAnalysisTest
     }
 
     @Test
-    public void givenCricketLeagueData_whenSorted_ShouldReturnAllRounderWithRunsAndWkts() {
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestRuner() {
         cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
         String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestRuns();
         CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
@@ -161,4 +164,3 @@ public class CricketLeagueAnalysisTest
         Assert.assertEquals("Deepak Chahar",playerName);
     }
 }
-

@@ -20,7 +20,7 @@ public class CricketLeagueAnalysis {
         } catch (IOException e) {
             throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
         } catch (RuntimeException e) {
-            throw new CricketLeagueAnalysisException(e.getMessage(), CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE);
+            throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE);
         }
     }
 
@@ -45,14 +45,14 @@ public class CricketLeagueAnalysis {
         return sortedCensusJson;
     }
 
-   public String getTopStrickeRate(){
-       if(csvFileList.size()==0 || csvFileList==null)
-           throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-           Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
-           this.sortedDataOfRuns(runnerComparator);
-           String sortedDataJson=new Gson().toJson(csvFileList);
-           return sortedDataJson;
-   }
+    public String getTopStrickeRate(){
+        if(csvFileList.size()==0 || csvFileList==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
+        this.sortedDataOfRuns(runnerComparator);
+        String sortedDataJson=new Gson().toJson(csvFileList);
+        return sortedDataJson;
+    }
 
     public String getMaximumSixesInMatch(){
         if(csvFileList.size()==0 || csvFileList==null)
@@ -139,6 +139,7 @@ public class CricketLeagueAnalysis {
         String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
         return sortedDataOfWkts;
     }
+
     public String getSortedDataAccordingToBestRuns() {
         if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
@@ -173,5 +174,3 @@ public class CricketLeagueAnalysis {
         }
     }
 }
-
-
