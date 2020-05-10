@@ -1,6 +1,7 @@
 package com.analysis;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CSVRunner;
+import com.bl.analysis.model.CSVWkts;
 import com.bl.analysis.model.CricketLeagueAnalysis;
 import com.google.gson.Gson;
 import org.junit.Assert;
@@ -125,9 +126,20 @@ public class CricketLeagueAnalysisTest
     @Test
     public void givenCricketLeagueData_whenNumberOfRecordMatches_shouldReturnTrue() {
         try {
-            int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfRuns(WICKETS_CSV_FILE_PATH);
+            int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
             Assert.assertEquals(100, numberOfRecords);
         } catch (CricketLeagueAnalysisException e) {
         }
     }
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnWktsAverage() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedWktsAvrageData();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        double runs=csvWkts[0].getAvg();
+        Assert.assertEquals("Krishnappa Gowtham",playerName);
+    }
+
+
 }

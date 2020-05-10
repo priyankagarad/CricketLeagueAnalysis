@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 public class CricketLeagueAnalysis {
     List<CSVRunner> csvFileList = null;
+    List<CSVWkts> csvFileListOfWkts= null;
 
     public Integer loadIPLDataOfRuns(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
@@ -26,8 +27,8 @@ public class CricketLeagueAnalysis {
     public Integer loadIPLDataOfWkts(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
-            csvFileList= csvBuilder.getCSVFileList(reader, CSVRunner.class);
-            return csvFileList.size();
+            csvFileListOfWkts= csvBuilder.getCSVFileList(reader, CSVRunner.class);
+            return csvFileListOfWkts.size();
         } catch (IOException e) {
             throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
         } catch (RuntimeException e) {
@@ -87,6 +88,16 @@ public class CricketLeagueAnalysis {
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
+
+    public String getSortedWktsAvrageData() {
+        if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getAvg());
+        this.sortedDataOfWkts(iplComparator);
+        String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
+        return sortedDataOfWkts;
+    }
+
     private void sortedDataOfRuns(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
@@ -99,15 +110,14 @@ public class CricketLeagueAnalysis {
             }
         }
     }
-
-    private void sortedDataOdWkts(Comparator<CSVRunner> iplComparator) {
-        for (int i = 0; i < csvFileList.size() - 1; i++) {
-            for (int j = 0; j < csvFileList.size() - i - 1; j++) {
-                CSVRunner census1 = csvFileList.get(j);
-                CSVRunner census2 =csvFileList.get(j + 1);
-                if (iplComparator.compare(census1, census2) < 0) {
-                    csvFileList.set(j, census2);
-                    csvFileList.set(j + 1, census1);
+    private void sortedDataOfWkts(Comparator<CSVWkts> iplComparator1) {
+        for (int i = 0; i < csvFileListOfWkts.size() - 1; i++) {
+            for (int j = 0; j < csvFileListOfWkts.size() - i - 1; j++) {
+                CSVWkts census1 = csvFileListOfWkts.get(j);
+                CSVWkts census2 =csvFileListOfWkts.get(j + 1);
+                if (iplComparator1.compare(census1, census2) < 0) {
+                    csvFileListOfWkts.set(j, census2);
+                    csvFileListOfWkts.set(j + 1, census1);
                 }
             }
         }
