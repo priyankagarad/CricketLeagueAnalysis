@@ -149,4 +149,13 @@ public class CricketLeagueAnalysisTest
         String playerName=csvWkts[0].getPLAYER();
         Assert.assertEquals("Krishnappa Gowtham",playerName);
     }
+
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestEconomy() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestEconomy();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Ben Cutting",playerName);
+    }
 }
