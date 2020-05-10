@@ -1,38 +1,49 @@
 package com.bl.analysis.model;
+import com.bl.analysis.builder.CSVBuilderFactory;
+import com.bl.analysis.builder.ICSVBuilder;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import static java.nio.file.Files.newBufferedReader;
+import java.util.*;
 public class CricketLeagueAnalysis {
-   public int loadIPLData( String filePath)
-   {
-       int totalRecords = 0;
-       try (Reader reader = newBufferedReader(Paths.get(filePath));)
-       {
-           CsvToBean<IPLMostRun> csvStateCensusBeanObj = new CsvToBeanBuilder(reader)
-                   .withType(IPLMostRun.class)
-                   .withIgnoreLeadingWhiteSpace(true)
-                   .build();
-           Iterator<IPLMostRun> csvStateCensusIterator = csvStateCensusBeanObj.iterator();
-           while (csvStateCensusIterator.hasNext()) {
-               IPLMostRun csvStateCensus = csvStateCensusIterator.next();
-               totalRecords++;
-           }
-       }
-       catch (IOException e)
-       {
-           throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
-       }
-       catch (RuntimeException e)
-       {
-           throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE);
-       }
-       return totalRecords;
-   }
+    List<CSVRunner> csvFileList = null;
+
+    public Integer loadIPLData(String filePath) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
+            csvFileList= csvBuilder.getCSVFileList(reader, CSVRunner.class);
+            return csvFileList.size();
+        } catch (IOException e) {
+            throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
+        } catch (RuntimeException e) {
+            throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE);
+        }
+    }
+
+    public String bestBattingaverage() {
+        if (csvFileList.size() == 0 || csvFileList == null)
+            throw new CricketLeagueAnalysisException("No Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> census.getAvg());
+        this.sort(runsComparator);
+        String sortedCensusJson = new Gson().toJson(csvFileList);
+        return sortedCensusJson;
+    }
+
+    private void sort(Comparator<CSVRunner> iplComparator) {
+        for (int i = 0; i < csvFileList.size() - 1; i++) {
+            for (int j = 0; j < csvFileList.size() - i - 1; j++) {
+                CSVRunner census1 = csvFileList.get(j);
+                CSVRunner census2 =csvFileList.get(j + 1);
+                if (iplComparator.compare(census1, census2) < 0) {
+                    csvFileList.set(j, census2);
+                    csvFileList.set(j + 1, census1);
+                }
+            }
+        }
+    }
 }
 
 

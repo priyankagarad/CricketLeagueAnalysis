@@ -1,6 +1,6 @@
 package com.bl.analysis.model;
 import com.opencsv.bean.CsvBindByName;
-public class IPLMostRun {
+public class CSVRunner {
         @CsvBindByName(column = "POS")
         private String POS;
 
@@ -23,7 +23,7 @@ public class IPLMostRun {
         private String HS;
 
         @CsvBindByName(column = "Avg")
-        private String Avg;
+        private double Avg;
 
         @CsvBindByName(column = "BF")
         private String BF;
@@ -42,6 +42,8 @@ public class IPLMostRun {
 
         @CsvBindByName(column = "6s")
         private String sixs;
+
+
         public String getPOS () {
         return POS;
     }
@@ -98,11 +100,11 @@ public class IPLMostRun {
         this.HS = HS;
     }
 
-        public String getAvg () {
+        public double getAvg () {
         return Avg;
     }
 
-        public void setAvg (String avg){
+        public void setAvg (double avg){
         Avg = avg;
     }
 
@@ -154,5 +156,25 @@ public class IPLMostRun {
         this.sixs = sixs;
     }
 
+   @Override
+    public String toString() {
+        return "CSVRunner{" +
+                "POS='" + POS + '\'' +
+                ", PLAYER='" + PLAYER + '\'' +
+                ", Mat='" + Mat + '\'' +
+                ", Inns='" + Inns + '\'' +
+                ", NO='" + NO + '\'' +
+                ", Runs='" + Runs + '\'' +
+                ", HS='" + HS + '\'' +
+                ", Avg='" + Avg + '\'' +
+                ", BF='" + BF + '\'' +
+                ", SR='" + SR + '\'' +
+                ", hundred='" + hundred + '\'' +
+                ", fifty='" + fifty + '\'' +
+                ", fours='" + fours + '\'' +
+                ", sixs='" + sixs + '\'' +
+                '}';
+    }
 }
+
 

@@ -1,11 +1,14 @@
 package com.analysis;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
+import com.bl.analysis.model.CSVRunner;
 import com.bl.analysis.model.CricketLeagueAnalysis;
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static com.bl.analysis.model.FileUtility.*;
-public class CricketLeagueAnalysisTest {
+public class CricketLeagueAnalysisTest
+{
     CricketLeagueAnalysis cricketLeagueAnalysis;
 
     @Before
@@ -14,7 +17,6 @@ public class CricketLeagueAnalysisTest {
         cricketLeagueAnalysis = new CricketLeagueAnalysis();
     }
 
-    /* TC:1.1 Check Number of Record matches of CSV file */
     @Test
     public void givenCsvFile_whenNumberOfRecordMatches_thenReturnTrue() throws CricketLeagueAnalysisException {
         try {
@@ -24,7 +26,6 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
-    /* TC: 1.2 :Given IPL Csv File Is Incorrect Then Returns Custom Exception */
     @Test
     public void givenIPLCsvFile_WhenWithWrongFile_ThenShouldThrowException()
     {
@@ -35,7 +36,6 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
-    /* TC: 1.3 :Given IPL Csv Type Is Incorrect Then Returns Custom Exception */
     @Test
     public void givenFileName_whenImproper_shouldThrowException()
     {
@@ -47,7 +47,6 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
-    /* TC: 1.4 :Given IPLCsv file Is Correct But Wrong Delimiter Should throw Custom Exception */
     @Test
     public void givenStateCensusData_WhenWithWrongDelimiter_ThenShouldThrowException()
     {
@@ -58,7 +57,7 @@ public class CricketLeagueAnalysisTest {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
         }
     }
-    /* T.C 1.5 :Given IPL Csv file Header is Incorrect return Custom Exception */
+
     @Test
     public void givenIPLDataFile_WhenHeaderIsWrong_ThenShouldThrowException()
     {
@@ -67,5 +66,15 @@ public class CricketLeagueAnalysisTest {
         catch (CricketLeagueAnalysisException e) {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
         }
+    }
+
+    @Test
+    public void whenGivenBatsmanStats_ShouldReturnPlayerWithBestBattingAverage() {
+        cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
+        String sortedStats = cricketLeagueAnalysis.bestBattingaverage();
+        CSVRunner[] batsmanCSVS = new Gson().fromJson(sortedStats, CSVRunner[].class);
+        String playerName=batsmanCSVS[0].getPLAYER();
+        double runs=batsmanCSVS[0].getAvg();
+        Assert.assertEquals("MS Dhoni",batsmanCSVS[0].getPLAYER());
     }
 }
