@@ -67,7 +67,7 @@ public class CricketLeagueAnalysis {
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
-    
+
     private void sort(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
