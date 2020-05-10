@@ -67,6 +67,14 @@ public class CricketLeagueAnalysis {
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
+    public String getSortedRunsWithBestAvrage() {
+        if(csvFileList.size()==0 || csvFileList==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getRuns());
+        this.sort(runnerComparator);
+        String sortedDataJson=new Gson().toJson(csvFileList);
+        return sortedDataJson;
+    }
 
     private void sort(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
