@@ -94,4 +94,13 @@ public class CricketLeagueAnalysisTest
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Shikhar Dhawan", playerName);
     }
+
+    @Test
+    public void givenCricketLeagueData_whenSorted_shouldReturnSixs() {
+        cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getMaximumSixesInMatch();
+        CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
+        String playerName = batsmanCSVS[0].getPLAYER();
+        Assert.assertEquals("Andre Russell", playerName);
+    }
 }
