@@ -6,5 +6,5 @@ public class FileUtility
     public static final String WRONG_CSV_FILE_TYPE="./src/test/resources/MostRuns.txt";
     public static final String WRONG_DELIMITER_FILE="./src/test/resources/MostRunsWrongFomate.csv";
     public static final String BATSMAN_CSV_FILE_PATH="./src/test/resources/MostRuns.csv";
-    public static final String WICKETS_CSV_FILE_PATH="./src/test/resources/MostRuns.csv";
+    public static final String WICKETS_CSV_FILE_PATH="./src/test/resources/MostWkts.csv";
 }

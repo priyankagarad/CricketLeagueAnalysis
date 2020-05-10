@@ -27,7 +27,7 @@ public class CricketLeagueAnalysis {
     public Integer loadIPLDataOfWkts(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
-            csvFileListOfWkts= csvBuilder.getCSVFileList(reader, CSVRunner.class);
+            csvFileListOfWkts= csvBuilder.getCSVFileList(reader, CSVWkts.class);
             return csvFileListOfWkts.size();
         } catch (IOException e) {
             throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
@@ -98,10 +98,19 @@ public class CricketLeagueAnalysis {
         return sortedDataOfWkts;
     }
 
-    public String getSortedWiseWicketsWithBestStrikingRate() {
+    public String getSortedDataOfWicketsWithBestStrikingRate() {
         if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getSR());
+        this.sortedDataOfWkts(iplComparator);
+        String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
+        return sortedDataOfWkts;
+    }
+
+    public String getSortedDataAccordingToBestEconomy() {
+        if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getEcon());
         this.sortedDataOfWkts(iplComparator);
         String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
         return sortedDataOfWkts;

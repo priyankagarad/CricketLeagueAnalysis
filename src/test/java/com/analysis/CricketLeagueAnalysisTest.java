@@ -127,7 +127,7 @@ public class CricketLeagueAnalysisTest
     public void givenCricketLeagueData_whenNumberOfRecordMatches_shouldReturnTrue() {
         try {
             int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
-            Assert.assertEquals(100, numberOfRecords);
+            Assert.assertEquals(99, numberOfRecords);
         } catch (CricketLeagueAnalysisException e) {
         }
     }
@@ -138,6 +138,15 @@ public class CricketLeagueAnalysisTest
         CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
         String playerName=csvWkts[0].getPLAYER();
         double runs=csvWkts[0].getAvg();
+        Assert.assertEquals("Krishnappa Gowtham",playerName);
+    }
+
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnWktsTopStrickRate() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataOfWicketsWithBestStrikingRate();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
         Assert.assertEquals("Krishnappa Gowtham",playerName);
     }
 }
