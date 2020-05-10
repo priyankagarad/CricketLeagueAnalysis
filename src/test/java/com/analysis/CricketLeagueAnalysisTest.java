@@ -158,4 +158,21 @@ public class CricketLeagueAnalysisTest
         String playerName=csvWkts[0].getPLAYER();
         Assert.assertEquals("Ben Cutting",playerName);
     }
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestStrickRate4W() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestStrickRateOf4w();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Imran Tahir",playerName);
+    }
+
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestStrickRate5W() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestStrickRateOf5w();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Alzarri Joseph",playerName);
+    }
 }
