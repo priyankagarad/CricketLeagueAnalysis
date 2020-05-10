@@ -1,5 +1,5 @@
 package com.bl.analysis.builder;
-import com.bl.analysis.exception.CSVBuilderException;
+import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.BufferedReader;
@@ -18,9 +18,9 @@ class CSVBuilder implements ICSVBuilder
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<ICSVBuilder> csvToBean = csvToBeanBuilder.build();
             return csvToBean;
-        } catch (IllegalStateException e) {
-            throw new CSVBuilderException(e.getMessage(),
-                    CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (CricketLeagueAnalysisException e) {
+            throw new CricketLeagueAnalysisException(e.getMessage(),
+                    CricketLeagueAnalysisException.ExceptionType.UNABLE_TO_PARSE);
         }
     }
 }

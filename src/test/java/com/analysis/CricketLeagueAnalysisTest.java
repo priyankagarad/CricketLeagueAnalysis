@@ -11,62 +11,10 @@ import static com.bl.analysis.model.FileUtility.*;
 public class CricketLeagueAnalysisTest
 {
     CricketLeagueAnalysis cricketLeagueAnalysis;
-
     @Before
     public void setUP()
     {
         cricketLeagueAnalysis = new CricketLeagueAnalysis();
-    }
-
-    @Test
-    public void givenCsvFile_whenNumberOfRecordMatches_thenReturnTrue() throws CricketLeagueAnalysisException {
-        try {
-            int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfRuns(IPL_RUN_SHEET);
-             Assert.assertEquals(100, numberOfRecords);
-        } catch (CricketLeagueAnalysisException e) {
-        }
-    }
-
-    @Test
-    public void givenIPLCsvFile_WhenWithWrongFile_ThenShouldThrowException()
-    {
-        try {
-            cricketLeagueAnalysis.loadIPLDataOfRuns(WRONG_CSV_FILE_Name);
-        } catch ( CricketLeagueAnalysisException e) {
-            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND,e.exceptionTypeObject);
-        }
-    }
-
-    @Test
-    public void givenFileName_whenImproper_shouldThrowException()
-    {
-        try {
-            cricketLeagueAnalysis.loadIPLDataOfRuns(WRONG_CSV_FILE_TYPE);
-        }
-        catch (CricketLeagueAnalysisException e) {
-            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND,e.exceptionTypeObject);
-        }
-    }
-
-    @Test
-    public void givenStateCensusData_WhenWithWrongDelimiter_ThenShouldThrowException()
-    {
-        try {
-            cricketLeagueAnalysis.loadIPLDataOfRuns(WRONG_DELIMITER_FILE);
-        }
-        catch (CricketLeagueAnalysisException e) {
-            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
-        }
-    }
-
-    @Test
-    public void givenIPLDataFile_WhenHeaderIsWrong_ThenShouldThrowException()
-    {
-        try {
-            cricketLeagueAnalysis.loadIPLDataOfRuns(WRONG_DELIMITER_FILE); }
-        catch (CricketLeagueAnalysisException e) {
-            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE,e.exceptionTypeObject);
-        }
     }
 
     @Test
@@ -184,4 +132,27 @@ public class CricketLeagueAnalysisTest
         String playerName=csvWkts[0].getPLAYER();
         Assert.assertEquals("Krishnappa Gowtham",playerName);
     }
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestWkts() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestWickets();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Imran Tahir",playerName);
+    }
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnBestBowlingAndBestBattingAverage() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedWktsAvrageData();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName = csvWkts[0].getPLAYER();
+        Assert.assertEquals("Krishnappa Gowtham", playerName);
+
+        cricketLeagueAnalysis.loadIPLDataOfRuns(BATSMAN_CSV_FILE_PATH);
+        String sorteddata1 = cricketLeagueAnalysis.getTopBattingaverageWithSR();
+        CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata1, CSVRunner[].class);
+        String playerName1 = batsmanCSVS[0].getPLAYER();
+        Assert.assertEquals("MS Dhoni", playerName1);
+    }
 }
+

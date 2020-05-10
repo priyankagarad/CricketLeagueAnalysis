@@ -14,7 +14,7 @@ public class CSVWkts {
     @CsvBindByName(column = "Runs")
     public String Runs;
     @CsvBindByName(column = "Wkts")
-    public String Wkts;
+    public double Wkts;
     @CsvBindByName(column = "BBI")
     public String BBI;
     @CsvBindByName(column = "Avg")
@@ -76,11 +76,11 @@ public class CSVWkts {
         Runs = runs;
     }
 
-    public String getWkts() {
+    public double getWkts() {
         return Wkts;
     }
 
-    public void setWkts(String wkts) {
+    public void setWkts(double wkts) {
         Wkts = wkts;
     }
 
