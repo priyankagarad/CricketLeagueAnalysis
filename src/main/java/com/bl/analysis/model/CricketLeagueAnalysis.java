@@ -131,6 +131,14 @@ public class CricketLeagueAnalysis {
         String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
         return sortedDataOfWkts;
     }
+    public String getSortedDataAccordingToBestWickets() {
+        if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
+            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getWkts());
+        this.sortedDataOfWkts(iplComparator);
+        String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
+        return sortedDataOfWkts;
+    }
 
     private void sortedDataOfRuns(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
