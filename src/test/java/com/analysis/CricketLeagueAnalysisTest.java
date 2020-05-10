@@ -69,9 +69,9 @@ public class CricketLeagueAnalysisTest
     }
 
     @Test
-    public void whenGivenBatsmanStats_ShouldReturnPlayerWithBestBattingAverage() {
+    public void givenCricketLeagueData_whenSorted_ShouldReturnPlayerWithBestBattingAverage() {
         cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
-        String sorteddata = cricketLeagueAnalysis.getTopBattingaverage();
+        String sorteddata = cricketLeagueAnalysis.getTopBattingaverageWithSR();
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
         String playerName=batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("MS Dhoni",playerName);
@@ -111,13 +111,5 @@ public class CricketLeagueAnalysisTest
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Ishant Sharma", playerName);
-    }
-    @Test
-    public void GivenCricketLeagueData_whenSorted_ShouldReturnAverageWithBestSR() {
-        cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
-        String sorteddata = cricketLeagueAnalysis.getTopBattingaverage();
-        CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
-        String playerName=batsmanCSVS[0].getPLAYER();
-        Assert.assertEquals("MS Dhoni",playerName);
     }
 }
