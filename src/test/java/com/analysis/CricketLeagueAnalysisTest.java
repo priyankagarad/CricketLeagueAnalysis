@@ -112,4 +112,12 @@ public class CricketLeagueAnalysisTest
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Ishant Sharma", playerName);
     }
+    @Test
+    public void GivenCricketLeagueData_whenSorted_ShouldReturnAverageWithBestSR() {
+        cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getTopBattingaverage();
+        CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
+        String playerName=batsmanCSVS[0].getPLAYER();
+        Assert.assertEquals("MS Dhoni",playerName);
+    }
 }
