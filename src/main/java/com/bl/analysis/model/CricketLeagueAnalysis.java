@@ -11,7 +11,19 @@ import java.util.*;
 public class CricketLeagueAnalysis {
     List<CSVRunner> csvFileList = null;
 
-    public Integer loadIPLData(String filePath) {
+    public Integer loadIPLDataOfRuns(String filePath) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
+            csvFileList= csvBuilder.getCSVFileList(reader, CSVRunner.class);
+            return csvFileList.size();
+        } catch (IOException e) {
+            throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.FILE_NOT_FOUND);
+        } catch (RuntimeException e) {
+            throw new CricketLeagueAnalysisException(e.getMessage(),CricketLeagueAnalysisException.ExceptionType.WRONG_DELIMITER_FILE);
+        }
+    }
+
+    public Integer loadIPLDataOfWkts(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
             csvFileList= csvBuilder.getCSVFileList(reader, CSVRunner.class);
@@ -75,7 +87,7 @@ public class CricketLeagueAnalysis {
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
     }
-
+    
     private void sort(Comparator<CSVRunner> iplComparator) {
         for (int i = 0; i < csvFileList.size() - 1; i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
