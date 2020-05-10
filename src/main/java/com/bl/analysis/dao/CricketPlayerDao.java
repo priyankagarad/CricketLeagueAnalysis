@@ -10,11 +10,11 @@ public class CricketPlayerDao {
     private String HS;
     private double Avg;
     private String BF;
-    private String SR;
+    private double SR;
     private String hundred;
     private String fifty;
-    private String fours;
-    private String sixs;
+    private double fours;
+    private double sixs;
 
     public CricketPlayerDao(CSVRunner csvRunner)
     {
@@ -106,11 +106,11 @@ public class CricketPlayerDao {
         this.BF = BF;
     }
 
-    public String getSR () {
+    public double getSR () {
         return SR;
     }
 
-    public void setSR (String SR){
+    public void setSR (double SR){
         this.SR = SR;
     }
 
@@ -130,19 +130,19 @@ public class CricketPlayerDao {
         this.fifty = fifty;
     }
 
-    public String getFours () {
+    public double getFours () {
         return fours;
     }
 
-    public void setFours (String fours){
+    public void setFours (double fours){
         this.fours = fours;
     }
 
-    public String getSixs () {
+    public double getSixs () {
         return sixs;
     }
 
-    public void setSixs (String sixs){
+    public void setSixs (double sixs){
         this.sixs = sixs;
     }
 

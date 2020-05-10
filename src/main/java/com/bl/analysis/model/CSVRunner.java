@@ -38,10 +38,10 @@ public class CSVRunner {
         private String fifty;
 
         @CsvBindByName(column = "4s")
-        private String fours;
+        private double fours;
 
         @CsvBindByName(column = "6s")
-        private String sixs;
+        private double sixs;
 
 
         public String getPOS () {
@@ -140,19 +140,19 @@ public class CSVRunner {
         this.fifty = fifty;
     }
 
-        public String getFours () {
+        public double getFours () {
         return fours;
     }
 
-        public void setFours (String fours){
+        public void setFours (double fours){
         this.fours = fours;
     }
 
-        public String getSixs () {
+        public double getSixs () {
         return sixs;
     }
 
-        public void setSixs (String sixs){
+        public void setSixs (double sixs){
         this.sixs = sixs;
     }
 
