@@ -103,7 +103,7 @@ public class CricketLeagueAnalysisTest
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Andre Russell", playerName);
     }
-    
+
     @Test
     public void givenCricketLeagueData_whenSorted_shouldReturnFourAndSix() {
         cricketLeagueAnalysis.loadIPLData(BATSMAN_CSV_FILE_PATH);
