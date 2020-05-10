@@ -1,5 +1,4 @@
 package com.analysis;
-import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CSVRunner;
 import com.bl.analysis.model.CSVWkts;
 import com.bl.analysis.model.CricketLeagueAnalysis;
@@ -73,12 +72,10 @@ public class CricketLeagueAnalysisTest
 
     @Test
     public void givenCricketLeagueData_whenNumberOfRecordMatches_shouldReturnTrue() {
-        try {
             int numberOfRecords = cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
             Assert.assertEquals(99, numberOfRecords);
-        } catch (CricketLeagueAnalysisException e) {
-        }
     }
+
     @Test
     public void givenCricketLeagueData_whenSorted_ShouldReturnWktsAverage() {
         cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
@@ -153,6 +150,15 @@ public class CricketLeagueAnalysisTest
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata1, CSVRunner[].class);
         String playerName1 = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("MS Dhoni", playerName1);
+    }
+
+    @Test
+    public void givenCricketLeagueData_whenSorted_ShouldReturnAllRounderWithRunsAndWkts() {
+        cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
+        String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestRuns();
+        CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
+        String playerName=csvWkts[0].getPLAYER();
+        Assert.assertEquals("Deepak Chahar",playerName);
     }
 }
 

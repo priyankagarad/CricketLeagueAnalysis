@@ -18,7 +18,7 @@ class CSVBuilder implements ICSVBuilder
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<ICSVBuilder> csvToBean = csvToBeanBuilder.build();
             return csvToBean;
-        } catch (CricketLeagueAnalysisException e) {
+        } catch (RuntimeException e) {
             throw new CricketLeagueAnalysisException(e.getMessage(),
                     CricketLeagueAnalysisException.ExceptionType.UNABLE_TO_PARSE);
         }

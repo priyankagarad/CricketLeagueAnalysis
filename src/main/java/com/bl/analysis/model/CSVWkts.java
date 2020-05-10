@@ -2,31 +2,31 @@ package com.bl.analysis.model;
 import com.opencsv.bean.CsvBindByName;
 public class CSVWkts {
     @CsvBindByName(column = "POS")
-    public String POS;
+    private String POS;
     @CsvBindByName(column = "PLAYER")
-    public String PLAYER;
+    private String PLAYER;
     @CsvBindByName(column = "Mat")
-    public String Mat;
+    private String Mat;
     @CsvBindByName(column = "Inns")
-    public String Inns;
+    private String Inns;
     @CsvBindByName(column = "Ov")
-    public String Ov;
+    private String Ov;
     @CsvBindByName(column = "Runs")
-    public String Runs;
+    private double Runs;
     @CsvBindByName(column = "Wkts")
-    public double Wkts;
+    private double Wkts;
     @CsvBindByName(column = "BBI")
-    public String BBI;
+    private String BBI;
     @CsvBindByName(column = "Avg")
-    public double Avg;
+    private double Avg;
     @CsvBindByName(column = "Econ")
-    public double Econ;
+    private double Econ;
     @CsvBindByName(column = "SR")
-    public double SR;
+    private double SR;
     @CsvBindByName(column = "4w")
-    public String FourWickets;
+    private String FourWickets;
     @CsvBindByName(column = "5w")
-    public String FiveWickets;
+    private String FiveWickets;
 
     public String getPOS() {
         return POS;
@@ -68,11 +68,11 @@ public class CSVWkts {
         Ov = ov;
     }
 
-    public String getRuns() {
+    public double getRuns() {
         return Runs;
     }
 
-    public void setRuns(String runs) {
+    public void setRuns(double runs) {
         Runs = runs;
     }
 
@@ -132,22 +132,4 @@ public class CSVWkts {
         FiveWickets = fiveWickets;
     }
 
-    @Override
-    public String toString() {
-        return "IplMostWickets{" +
-                "POS='" + POS + '\'' +
-                ", PLAYER='" + PLAYER + '\'' +
-                ", Mat='" + Mat + '\'' +
-                ", Inns='" + Inns + '\'' +
-                ", Ov='" + Ov + '\'' +
-                ", Runs='" + Runs + '\'' +
-                ", Wkts='" + Wkts + '\'' +
-                ", BBI='" + BBI + '\'' +
-                ", Avg='" + Avg + '\'' +
-                ", Econ='" + Econ + '\'' +
-                ", SR='" + SR + '\'' +
-                ", FourWickets='" + FourWickets + '\'' +
-                ", FiveWickets='" + FiveWickets + '\'' +
-                '}';
-    }
 }
