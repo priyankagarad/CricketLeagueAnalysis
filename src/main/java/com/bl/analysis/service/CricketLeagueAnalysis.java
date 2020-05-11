@@ -1,7 +1,9 @@
-package com.bl.analysis.model;
+package com.bl.analysis.service;
 import com.bl.analysis.builder.CSVBuilderFactory;
 import com.bl.analysis.builder.ICSVBuilder;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
+import com.bl.analysis.model.CSVRunner;
+import com.bl.analysis.model.CSVWkts;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +14,7 @@ public class CricketLeagueAnalysis {
     List<CSVRunner> csvFileList = null;
     List<CSVWkts> csvFileListOfWkts= null;
 
-    public Integer loadIPLDataOfRuns(String filePath) {
+    public int loadIPLDataOfRuns(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
             csvFileList= csvBuilder.getCSVFileList(reader, CSVRunner.class);
@@ -24,7 +26,7 @@ public class CricketLeagueAnalysis {
         }
     }
 
-    public Integer loadIPLDataOfWkts(String filePath) {
+    public int loadIPLDataOfWkts(String filePath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.icsBuilder();
             csvFileListOfWkts= csvBuilder.getCSVFileList(reader, CSVWkts.class);

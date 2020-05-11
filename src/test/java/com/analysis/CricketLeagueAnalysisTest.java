@@ -2,15 +2,17 @@ package com.analysis;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CSVRunner;
 import com.bl.analysis.model.CSVWkts;
-import com.bl.analysis.model.CricketLeagueAnalysis;
+import com.bl.analysis.service.CricketLeagueAnalysis;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static com.bl.analysis.model.FileUtility.*;
 public class CricketLeagueAnalysisTest
 {
     CricketLeagueAnalysis cricketLeagueAnalysis;
+    public static final String BATSMAN_CSV_FILE_PATH="./src/test/resources/MostRuns.csv";
+    public static final String WICKETS_CSV_FILE_PATH="./src/test/resources/MostWkts.csv";
+
     @Before
     public void setUP()
     {
