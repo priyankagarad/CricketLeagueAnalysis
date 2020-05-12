@@ -18,7 +18,7 @@ public class CSVRunner
     private String NO;
 
     @CsvBindByName(column = "Runs")
-    private String Runs;
+    private double Runs;
 
     @CsvBindByName(column = "HS")
     private String HS;
@@ -27,7 +27,7 @@ public class CSVRunner
     private double Avg;
 
     @CsvBindByName(column = "BF")
-    private String BF;
+    private double BF;
 
     @CsvBindByName(column = "SR")
     private double SR;
@@ -48,7 +48,7 @@ public class CSVRunner
         return PLAYER;
     }
 
-    public String getRuns() {
+    public double getRuns() {
         return Runs;
     }
 
@@ -63,6 +63,10 @@ public class CSVRunner
     }
 
     public double getSixs () { return sixs;
+    }
+
+    public double getBF() {
+        return BF;
     }
 }
 

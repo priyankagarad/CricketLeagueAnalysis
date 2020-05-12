@@ -10,7 +10,7 @@ public class CSVWkts {
     @CsvBindByName(column = "Inns")
     private String Inns;
     @CsvBindByName(column = "Ov")
-    private String Ov;
+    private double Ov;
     @CsvBindByName(column = "Runs")
     private double Runs;
     @CsvBindByName(column = "Wkts")
@@ -58,5 +58,9 @@ public class CSVWkts {
 
     public String getFiveWickets() {
         return FiveWickets;
+    }
+
+    public double getOv() {
+        return Ov;
     }
 }
