@@ -1,4 +1,4 @@
-package com.bl.analysis.service;
+package com.bl.analysis;
 import com.bl.analysis.builder.CSVBuilderFactory;
 import com.bl.analysis.builder.ICSVBuilder;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
@@ -41,8 +41,8 @@ public class CricketLeagueAnalysis {
     public String getTopBattingaverage() {
         if (csvFileList.size() == 0 || csvFileList == null)
             throw new CricketLeagueAnalysisException("No Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-        Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> census.getAvg());
-        this.sortedDataOfRuns(runsComparator);
+        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getAvg());
+        this.sortedDataOfRuns(runnerComparator);
         String sortedCensusJson = new Gson().toJson(csvFileList);
         return sortedCensusJson;
     }
@@ -51,24 +51,6 @@ public class CricketLeagueAnalysis {
         if(csvFileList.size()==0 || csvFileList==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
         Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSR());
-        this.sortedDataOfRuns(runnerComparator);
-        String sortedDataJson=new Gson().toJson(csvFileList);
-        return sortedDataJson;
-    }
-
-    public String getMaximumSixesInMatch(){
-        if(csvFileList.size()==0 || csvFileList==null)
-            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> csvRunner.getSixs());
-        this.sortedDataOfRuns(runnerComparator);
-        String sortedDataJson=new Gson().toJson(csvFileList);
-        return sortedDataJson;
-    }
-
-    public String getMaximumFoursInMatch(){
-        if(csvFileList.size()==0 || csvFileList==null)
-            throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-        Comparator<CSVRunner> runnerComparator=Comparator.comparing(csvRunner -> ((csvRunner.getRuns() / csvRunner.getBF())*100));
         this.sortedDataOfRuns(runnerComparator);
         String sortedDataJson=new Gson().toJson(csvFileList);
         return sortedDataJson;
@@ -86,7 +68,7 @@ public class CricketLeagueAnalysis {
     public String getTopBattingaverageWithStrickRate() {
         if (csvFileList.size() == 0 || csvFileList == null)
             throw new CricketLeagueAnalysisException("No Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-        Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> ((census.getAvg()+census.getSR())));
+        Comparator<CSVRunner> runsComparator = Comparator.comparing(census -> ((census.getAvg()+census.getSR())>100));
         this.sortedDataOfRuns(runsComparator);
         String sortedCensusJson = new Gson().toJson(csvFileList);
         return sortedCensusJson;
@@ -122,7 +104,7 @@ public class CricketLeagueAnalysis {
     public String getSortedDataAccordingToBestEconomy() {
         if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);
-        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> ((csvWkts.getRuns()/csvWkts.getOv())*100));
+        Comparator<CSVWkts> iplComparator=Comparator.comparing(csvWkts -> csvWkts.getEcon());
         this.sortedDataOfWkts(iplComparator);
         String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
         return sortedDataOfWkts;
@@ -145,7 +127,7 @@ public class CricketLeagueAnalysis {
         String sortedDataOfWkts=new Gson().toJson(csvFileListOfWkts);
         return sortedDataOfWkts;
     }
-    
+
     public String getSortedDataBowlingMaximumWicketsWithBestBowlingAverage() {
         if(csvFileListOfWkts.size()==0 || csvFileListOfWkts==null)
             throw new CricketLeagueAnalysisException("NO Data",CricketLeagueAnalysisException.ExceptionType.NO_CENSUS_DATA);

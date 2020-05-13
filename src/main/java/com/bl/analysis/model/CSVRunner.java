@@ -59,12 +59,6 @@ public class CSVRunner
     public double getSR () { return SR;
     }
 
-    public double getFours () { return fours;
-    }
-
-    public double getSixs () { return sixs;
-    }
-
     public double getBF() {
         return BF;
     }

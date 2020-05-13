@@ -2,7 +2,7 @@ package com.analysis;
 import com.bl.analysis.exception.CricketLeagueAnalysisException;
 import com.bl.analysis.model.CSVRunner;
 import com.bl.analysis.model.CSVWkts;
-import com.bl.analysis.service.CricketLeagueAnalysis;
+import com.bl.analysis.CricketLeagueAnalysis;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,7 +53,7 @@ public class CricketLeagueAnalysisTest
     @Test
     public void givenCricketLeagueData_whenSorted_shouldReturnFoursAndSix() {
         cricketLeagueAnalysis.loadIPLDataOfRuns(BATSMAN_CSV_FILE_PATH);
-        String sorteddata = cricketLeagueAnalysis.getMaximumFoursInMatch();
+        String sorteddata = cricketLeagueAnalysis.getSortedStrickRateOfFoursAndSixs();
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
         String playerName = batsmanCSVS[0].getPLAYER();
         Assert.assertEquals("Andre Russell", playerName);
@@ -76,7 +76,7 @@ public class CricketLeagueAnalysisTest
         String sorteddata = cricketLeagueAnalysis.getTopBattingaverageWithStrickRate();
         CSVRunner[] batsmanCSVS = new Gson().fromJson(sorteddata, CSVRunner[].class);
         String playerName = batsmanCSVS[0].getPLAYER();
-        Assert.assertEquals("Ishant Sharma", playerName);
+        Assert.assertEquals("David Warner", playerName);
     }
 
     //TC:6
@@ -125,9 +125,10 @@ public class CricketLeagueAnalysisTest
     public void givenCricketLeagueData_whenSorted_ShouldReturnBestEconomy() {
         cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
         String sorteddata = cricketLeagueAnalysis.getSortedDataAccordingToBestEconomy();
+        System.out.println(sorteddata);
         CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
         String playerName=csvWkts[0].getPLAYER();
-        Assert.assertEquals("Anukul Roy",playerName);
+        Assert.assertEquals("Shivam Dube",playerName);
     }
 
     //TC:10
@@ -175,6 +176,7 @@ public class CricketLeagueAnalysisTest
     public void givenCricketLeagueData_whenSorted_ShouldReturnBestRuner() {
         cricketLeagueAnalysis.loadIPLDataOfWkts(WICKETS_CSV_FILE_PATH);
         String sorteddata = cricketLeagueAnalysis.getSortedDataforAllRounder();
+        System.out.println(sorteddata);
         CSVWkts[] csvWkts = new Gson().fromJson(sorteddata, CSVWkts[].class);
         String playerName=csvWkts[98].getPLAYER();
         Assert.assertEquals("Deepak Chahar",playerName);
